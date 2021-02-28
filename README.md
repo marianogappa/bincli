@@ -1,3 +1,9 @@
+## Installation
+
+Easy version: download the [latest release](https://github.com/marianogappa/bincli/releases/latest) for your OS.
+
+Otherwise, you know the hard version. Clone the repo, check that I'm not stealing your data and compile it.
+
 ## Usage
 
 ```
