@@ -33,6 +33,10 @@ func main() {
 		ticker(client, futuresClient)
 	case "alert":
 		alert(client, futuresClient)
+	case "uniswapAlert":
+		uniswapAlert()
+	case "bitforexAlert":
+		bitforexAlert()
 	default:
 		usage()
 	}
