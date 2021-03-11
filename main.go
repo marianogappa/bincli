@@ -35,6 +35,8 @@ func main() {
 		alert(client, futuresClient)
 	case "uniswapAlert":
 		uniswapAlert()
+	case "honeyswapAlert":
+		honeyswapAlert()
 	case "bitforexAlert":
 		bitforexAlert()
 	default:
