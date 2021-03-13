@@ -15,6 +15,7 @@ var (
 	uniswapAliases = map[string]string{
 		"APYS": "0xf7413489c474ca4399eee604716c72879eea3615",
 		"SYNC": "0xb6ff96b8a8d214544ca0dbc9b33f7ad6503efd32",
+		"ROOM": "0xad4f86a25bbc20ffb751f2fac312a0b4d8f88c64",
 	}
 )
 
