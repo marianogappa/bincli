@@ -73,9 +73,10 @@ func mustPrintChartHTML(balances map[string]assetStatus, useUSDT bool) {
 <body>
 	<div id="my_dataviz"></div>
 	<ul>
-		<li>Values are in BTC.</li>
+		<li>BTC x% (y%): x = % of portfolio, y = 24hr ∆ %</li>
+		<li>If you want to see absolute value in BTC or USDT, add ?p=1 to url</li>
 		<li>Some coins don't have a direct market against BTC. If they can be proxied via BNB, the proxy is used.</li>
-		<li>Percentages are the 24-hour delta of each coin against BTC.</li>
+		<li>Percentages in parens are the 24-hour delta of each coin against BTC.</li>
 		<li>For BTC itself, the % is against USDT.</li>
 		<li>Some coins have no direct percentage against BTC. In this case, no % is shown unless it can be proxied.</li>
 	</ul>
