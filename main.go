@@ -25,8 +25,10 @@ func main() {
 	switch os.Args[1] {
 	case "balance":
 		balance(client)
-	case "chartBalance":
-		chartBalance(client)
+	case "chartBalanceBtc":
+		chartBalance(client, false)
+	case "chartBalanceUsdt":
+		chartBalance(client, true)
 	case "ticker":
 		ticker(client, futuresClient)
 	case "alert":
