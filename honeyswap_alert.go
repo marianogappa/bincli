@@ -17,7 +17,7 @@ var (
 	}
 )
 
-func isHoneyswapConditionMet(contractAddress string, comparator string, target float64) (float64, bool) {
+func isHoneyswapConditionMet(contractAddress string, comparator string, target float64) (float64, bool, error) {
 	url := "https://api.thegraph.com/subgraphs/name/1hive/uniswap-v2"
 
 	var jsonStr = []byte(`{"query": "{tokenDayDatas(first: 1, orderBy: date, orderDirection: desc, where: { token: \"` + contractAddress + `\"}) {priceUSD } }"}`)
@@ -26,7 +26,7 @@ func isHoneyswapConditionMet(contractAddress string, comparator string, target f
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		log.Fatal(err)
+		return 0, false, err
 	}
 	defer resp.Body.Close()
 
@@ -35,36 +35,36 @@ func isHoneyswapConditionMet(contractAddress string, comparator string, target f
 	responseData := response{}
 	err = json.Unmarshal(body, &responseData)
 	if err != nil {
-		log.Fatal(err)
+		return 0, false, err
 	}
 	strPrice := responseData.Data.TokenDayDatas[0].PriceUSD
 	price, err := strconv.ParseFloat(strPrice, 64)
 	if err != nil {
-		log.Fatal(err)
+		return 0, false, err
 	}
 
 	switch comparator {
 	case ">":
 		if price > target {
-			return price, true
+			return price, true, nil
 		}
 	case "<":
 		if price < target {
-			return price, true
+			return price, true, nil
 		}
 	case ">=":
 		if price >= target {
-			return price, true
+			return price, true, nil
 		}
 	case "<=":
 		if price <= target {
-			return price, true
+			return price, true, nil
 		}
 	default:
 		usage()
 
 	}
-	return price, false
+	return price, false, nil
 }
 
 func honeyswapAlert() {
@@ -87,14 +87,18 @@ func honeyswapAlert() {
 	}
 
 	for {
-		price, isConditionMet := isHoneyswapConditionMet(contractAddress, comparator, target)
-		log.Printf("%v %v %v where %v = %v...\n",
-			symbol,
-			comparator,
-			targetStr,
-			symbol,
-			price,
-		)
+		price, isConditionMet, err := isHoneyswapConditionMet(contractAddress, comparator, target)
+		if err != nil {
+			log.Printf("Error getting ticker price for %v (because %v)", symbol, err)
+		} else {
+			log.Printf("%v %v %v where %v = %v...\n",
+				symbol,
+				comparator,
+				targetStr,
+				symbol,
+				price,
+			)
+		}
 		if isConditionMet {
 			break
 		}
