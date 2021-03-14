@@ -39,6 +39,8 @@ func main() {
 		honeyswapAlert()
 	case "bitforexAlert":
 		bitforexAlert()
+	case "bitmaxAlert":
+		bitmaxAlert()
 	default:
 		usage()
 	}

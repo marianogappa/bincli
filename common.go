@@ -22,6 +22,7 @@ bincli alert BTCUSDT ">" 56000 && cowsay "Reached"
 bincli uniswapAlert APYS ">" 0.1 && cowsay "Reached"
 bincli honeyswapAlert DAI ">" 0.1 && cowsay "Reached"
 bincli bitforexAlert coin-usdt-omi ">" 0.1 && cowsay "Reached"
+bincli bitmaxAlert BTC/USDT ">" 56000 && cowsay "Reached"
 `)
 }
 
