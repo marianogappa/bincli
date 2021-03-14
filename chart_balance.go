@@ -20,24 +20,24 @@ func pFloat(f float64) *float64 {
 }
 
 func chartBalance(client *binance.Client) {
-	balances := mustRequestAccountBalances(client)
+	rawBalances := mustRequestAccountBalances(client)
 	ticker := mustRequestTicker(client)
-	balancesInBtc := mustCalculateAllBalancesInBtc(balances, ticker, false)
-	mustPrintChartHTML(balancesInBtc)
+	balances := mustCalculateAllBalances(rawBalances, ticker, false)
+	mustPrintChartHTML(balances)
 }
 
-func mustPrintChartHTML(balancesInBtc map[string]assetStatus) {
+func mustPrintChartHTML(balances map[string]assetStatus) {
 	data := []d3Struct{{Name: "Origin", Parent: "", Value: nil, Percent: nil}}
 	totalBalance := 0.0
-	for _, balance := range balancesInBtc {
-		totalBalance += balance.balance
+	for _, balance := range balances {
+		totalBalance += balance.BalanceInBTC
 	}
-	for asset, balance := range balancesInBtc {
+	for asset, balance := range balances {
 		data = append(data, d3Struct{
 			Name:    asset,
 			Parent:  "Origin",
-			Value:   pFloat(balance.balance),
-			Percent: pFloat(balance.delta24pct),
+			Value:   pFloat(balance.BalanceInBTC),
+			Percent: pFloat(balance.Delta24pct),
 		})
 	}
 
