@@ -13,9 +13,11 @@ import (
 
 var (
 	uniswapAliases = map[string]string{
-		"APYS": "0xf7413489c474ca4399eee604716c72879eea3615",
-		"SYNC": "0xb6ff96b8a8d214544ca0dbc9b33f7ad6503efd32",
-		"ROOM": "0xad4f86a25bbc20ffb751f2fac312a0b4d8f88c64",
+		"APYS":   "0xf7413489c474ca4399eee604716c72879eea3615",
+		"SYNC":   "0xb6ff96b8a8d214544ca0dbc9b33f7ad6503efd32",
+		"ROOM":   "0xad4f86a25bbc20ffb751f2fac312a0b4d8f88c64",
+		"EROWAN": "0x07bac35846e5ed502aa91adf6a9e7aa210f2dcbe",
+		"INV":    "0x41d5d79431a913c4ae7d69a668ecdfe5ff9dfb68",
 	}
 )
 
