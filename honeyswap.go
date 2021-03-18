@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -17,7 +18,25 @@ var (
 	}
 )
 
-func isHoneyswapConditionMet(contractAddress string, comparator string, target float64) (float64, bool, error) {
+func honeyswapTicker() {
+	if len(os.Args) < 3 {
+		usage()
+	}
+	symbol := os.Args[2]
+	contractAddress := symbol
+	if honeyswapAliases[symbol] != "" {
+		contractAddress = honeyswapAliases[symbol]
+	}
+
+	price, err := requestHoneyswapTicker(contractAddress)
+	if err != nil {
+		log.Printf("Error getting ticker price for %v (because %v)", contractAddress, err)
+		usage()
+	}
+	fmt.Println(price)
+}
+
+func requestHoneyswapTicker(contractAddress string) (float64, error) {
 	url := "https://api.thegraph.com/subgraphs/name/1hive/uniswap-v2"
 
 	var jsonStr = []byte(`{"query": "{tokenDayDatas(first: 1, orderBy: date, orderDirection: desc, where: { token: \"` + contractAddress + `\"}) {priceUSD } }"}`)
@@ -26,7 +45,7 @@ func isHoneyswapConditionMet(contractAddress string, comparator string, target f
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		return 0, false, err
+		return 0, err
 	}
 	defer resp.Body.Close()
 
@@ -35,36 +54,22 @@ func isHoneyswapConditionMet(contractAddress string, comparator string, target f
 	responseData := response{}
 	err = json.Unmarshal(body, &responseData)
 	if err != nil {
-		return 0, false, err
+		return 0, err
 	}
 	strPrice := responseData.Data.TokenDayDatas[0].PriceUSD
 	price, err := strconv.ParseFloat(strPrice, 64)
 	if err != nil {
-		return 0, false, err
+		return 0, err
 	}
+	return price, nil
+}
 
-	switch comparator {
-	case ">":
-		if price > target {
-			return price, true, nil
-		}
-	case "<":
-		if price < target {
-			return price, true, nil
-		}
-	case ">=":
-		if price >= target {
-			return price, true, nil
-		}
-	case "<=":
-		if price <= target {
-			return price, true, nil
-		}
-	default:
-		usage()
-
+func isHoneyswapConditionMet(contractAddress string, comparator string, target float64) (float64, bool, error) {
+	price, err := requestHoneyswapTicker(contractAddress)
+	if err != nil {
+		return price, false, err
 	}
-	return price, false, nil
+	return isConditionMet(price, comparator, target)
 }
 
 func honeyswapAlert() {

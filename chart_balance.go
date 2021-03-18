@@ -26,7 +26,15 @@ func chartBalance(client *binance.Client, useUSDT bool) {
 	mustPrintChartHTML(balances, useUSDT)
 }
 
-func mustPrintChartHTML(balances map[string]assetStatus, useUSDT bool) {
+func chartBalanceData(client *binance.Client, useUSDT bool) {
+	rawBalances := mustRequestAccountBalances(client)
+	ticker := mustRequestTicker(client)
+	balances := mustCalculateAllBalances(rawBalances, ticker, false)
+	jsonMarshalledData := mustJSONMarshallChartData(balances, useUSDT)
+	fmt.Println(jsonMarshalledData)
+}
+
+func mustJSONMarshallChartData(balances map[string]assetStatus, useUSDT bool) string {
 	data := []d3Struct{{Name: "Origin", Parent: "", Value: nil, Percent: nil}}
 	for asset, balance := range balances {
 		if asset == "Total" {
@@ -48,6 +56,11 @@ func mustPrintChartHTML(balances map[string]assetStatus, useUSDT bool) {
 	if err != nil {
 		log.Fatal(err)
 	}
+	return string(jsonMarshalledData)
+}
+
+func mustPrintChartHTML(balances map[string]assetStatus, useUSDT bool) {
+	jsonMarshalledData := mustJSONMarshallChartData(balances, useUSDT)
 
 	fmt.Println(`
 <!DOCTYPE html>
@@ -57,7 +70,7 @@ func mustPrintChartHTML(balances map[string]assetStatus, useUSDT bool) {
   <script src="https://d3js.org/d3.v4.min.js"></script>
   <script>
 	const data = 
-  ` + string(jsonMarshalledData) + `
+  ` + jsonMarshalledData + `
   </script>
   <style>
 	body {

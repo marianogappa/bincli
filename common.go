@@ -13,7 +13,10 @@ func usage() {
 
 bincli balance
 bincli balance BTC
-bincli chartBalance > index.html && open index.html
+bincli chartBalanceBtc > index.html && open index.html
+bincli chartBalanceUsdt > index.html && open index.html
+bincli chartBalanceDataBtc
+bincli chartBalanceDataUsdt
 bincli ticker
 bincli ticker BTCUSDT
 bincli alert BTCUSDT ">" 56000 && cowsay "Reached"
@@ -21,6 +24,10 @@ bincli uniswapAlert APYS ">" 0.1 && cowsay "Reached"
 bincli honeyswapAlert DAI ">" 0.1 && cowsay "Reached"
 bincli bitforexAlert coin-usdt-omi ">" 0.1 && cowsay "Reached"
 bincli bitmaxAlert BTC/USDT ">" 56000 && cowsay "Reached"
+binci uniswapTicker APYS
+binci honeyswapTicker DAI
+binci bitforexTicker coin-usdt-omi
+binci bitmaxTicker BTC/USDT
 `)
 }
 
@@ -149,4 +156,30 @@ func mustCalculateAllBalances(balances map[string]float64, ticker map[string]ass
 	}
 	calculatedBalances["Total"] = assetStatus{BalanceInBTC: totalBTC, BalanceInUSDT: totalUSDT}
 	return calculatedBalances
+}
+
+func isConditionMet(price float64, comparator string, target float64) (float64, bool, error) {
+
+	switch comparator {
+	case ">":
+		if price > target {
+			return price, true, nil
+		}
+	case "<":
+		if price < target {
+			return price, true, nil
+		}
+	case ">=":
+		if price >= target {
+			return price, true, nil
+		}
+	case "<=":
+		if price <= target {
+			return price, true, nil
+		}
+	default:
+		usage()
+
+	}
+	return price, false, nil
 }

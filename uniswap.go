@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -33,7 +34,25 @@ type response struct {
 	Data tokenDayDatas `json:"data"`
 }
 
-func isUniswapConditionMet(contractAddress string, comparator string, target float64) (float64, bool, error) {
+func uniswapTicker() {
+	if len(os.Args) < 3 {
+		usage()
+	}
+	symbol := os.Args[2]
+	contractAddress := symbol
+	if uniswapAliases[symbol] != "" {
+		contractAddress = uniswapAliases[symbol]
+	}
+
+	price, err := requestUniswapTicker(contractAddress)
+	if err != nil {
+		log.Printf("Error getting ticker price for %v (because %v)", contractAddress, err)
+		usage()
+	}
+	fmt.Println(price)
+}
+
+func requestUniswapTicker(contractAddress string) (float64, error) {
 	url := "https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2"
 
 	var jsonStr = []byte(`{"query": "{tokenDayDatas(first: 1, orderBy: date, orderDirection: desc, where: { token: \"` + contractAddress + `\"}) {priceUSD } }"}`)
@@ -42,7 +61,7 @@ func isUniswapConditionMet(contractAddress string, comparator string, target flo
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		return 0, false, err
+		return 0, err
 	}
 	defer resp.Body.Close()
 
@@ -51,36 +70,22 @@ func isUniswapConditionMet(contractAddress string, comparator string, target flo
 	responseData := response{}
 	err = json.Unmarshal(body, &responseData)
 	if err != nil {
-		return 0, false, err
+		return 0, err
 	}
 	strPrice := responseData.Data.TokenDayDatas[0].PriceUSD
 	price, err := strconv.ParseFloat(strPrice, 64)
 	if err != nil {
-		return 0, false, err
+		return 0, err
 	}
+	return price, nil
+}
 
-	switch comparator {
-	case ">":
-		if price > target {
-			return price, true, nil
-		}
-	case "<":
-		if price < target {
-			return price, true, nil
-		}
-	case ">=":
-		if price >= target {
-			return price, true, nil
-		}
-	case "<=":
-		if price <= target {
-			return price, true, nil
-		}
-	default:
-		usage()
-
+func isUniswapConditionMet(contractAddress string, comparator string, target float64) (float64, bool, error) {
+	price, err := requestUniswapTicker(contractAddress)
+	if err != nil {
+		return price, false, err
 	}
-	return price, false, nil
+	return isConditionMet(price, comparator, target)
 }
 
 func uniswapAlert() {

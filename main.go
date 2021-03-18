@@ -29,6 +29,10 @@ func main() {
 		chartBalance(client, false)
 	case "chartBalanceUsdt":
 		chartBalance(client, true)
+	case "chartBalanceDataBtc":
+		chartBalanceData(client, false)
+	case "chartBalanceDataUsdt":
+		chartBalanceData(client, true)
 	case "ticker":
 		ticker(client, futuresClient)
 	case "alert":
@@ -41,6 +45,14 @@ func main() {
 		bitforexAlert()
 	case "bitmaxAlert":
 		bitmaxAlert()
+	case "uniswapTicker":
+		uniswapTicker()
+	case "honeyswapTicker":
+		honeyswapTicker()
+	case "bitforexTicker":
+		bitforexTicker()
+	case "bitmaxTicker":
+		bitmaxTicker()
 	default:
 		usage()
 	}

@@ -19,12 +19,24 @@ type bitforexResponse struct {
 	Data bitforexLast `json:"data"`
 }
 
-func isBitforexConditionMet(coin string, comparator string, target float64) (float64, bool, error) {
+func bitforexTicker() {
+	if len(os.Args) < 3 {
+		usage()
+	}
+	price, err := requestBitforexTicker(os.Args[2])
+	if err != nil {
+		log.Printf("Error getting ticker price for %v (because %v)", os.Args[2], err)
+		usage()
+	}
+	fmt.Println(price)
+}
+
+func requestBitforexTicker(coin string) (float64, error) {
 	url := fmt.Sprintf("https://api.bitforex.com/api/v1/market/ticker?symbol=%v", coin)
 
 	resp, err := http.Get(url)
 	if err != nil {
-		return 0, false, err
+		return 0, err
 	}
 	defer resp.Body.Close()
 
@@ -33,32 +45,18 @@ func isBitforexConditionMet(coin string, comparator string, target float64) (flo
 	responseData := bitforexResponse{}
 	err = json.Unmarshal(body, &responseData)
 	if err != nil {
-		return 0, false, err
+		return 0, err
 	}
 	price := responseData.Data.Last
+	return price, nil
+}
 
-	switch comparator {
-	case ">":
-		if price > target {
-			return price, true, nil
-		}
-	case "<":
-		if price < target {
-			return price, true, nil
-		}
-	case ">=":
-		if price >= target {
-			return price, true, nil
-		}
-	case "<=":
-		if price <= target {
-			return price, true, nil
-		}
-	default:
-		usage()
-
+func isBitforexConditionMet(contractAddress string, comparator string, target float64) (float64, bool, error) {
+	price, err := requestHoneyswapTicker(contractAddress)
+	if err != nil {
+		return price, false, err
 	}
-	return price, false, nil
+	return isConditionMet(price, comparator, target)
 }
 
 func bitforexAlert() {
