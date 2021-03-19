@@ -52,7 +52,7 @@ func requestBitforexTicker(coin string) (float64, error) {
 }
 
 func isBitforexConditionMet(contractAddress string, comparator string, target float64) (float64, bool, error) {
-	price, err := requestHoneyswapTicker(contractAddress)
+	price, err := requestBitforexTicker(contractAddress)
 	if err != nil {
 		return price, false, err
 	}
