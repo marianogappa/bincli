@@ -19,6 +19,7 @@ var (
 		"ROOM":   "0xad4f86a25bbc20ffb751f2fac312a0b4d8f88c64",
 		"EROWAN": "0x07bac35846e5ed502aa91adf6a9e7aa210f2dcbe",
 		"INV":    "0x41d5d79431a913c4ae7d69a668ecdfe5ff9dfb68",
+		"MARK":   "0x67c597624b17b16fb77959217360b7cd18284253",
 	}
 )
 
