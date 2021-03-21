@@ -20,6 +20,8 @@ var (
 		"EROWAN": "0x07bac35846e5ed502aa91adf6a9e7aa210f2dcbe",
 		"INV":    "0x41d5d79431a913c4ae7d69a668ecdfe5ff9dfb68",
 		"MARK":   "0x67c597624b17b16fb77959217360b7cd18284253",
+		"FARM":   "0xa0246c9032bc3a600820415ae600c6388619a14d",
+		"PICKLE": "0x429881672b9ae42b8eba0e26cd9c73711b891ca5",
 	}
 )
 
