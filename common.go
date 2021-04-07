@@ -20,14 +20,16 @@ bincli chartBalanceDataUsdt
 bincli ticker
 bincli ticker BTCUSDT
 bincli alert BTCUSDT ">" 56000 && cowsay "Reached"
+bincli sushiswapAlert DELTA ">" 0.1 && cowsay "Reached"
 bincli uniswapAlert APYS ">" 0.1 && cowsay "Reached"
 bincli honeyswapAlert DAI ">" 0.1 && cowsay "Reached"
 bincli bitforexAlert coin-usdt-omi ">" 0.1 && cowsay "Reached"
 bincli bitmaxAlert BTC/USDT ">" 56000 && cowsay "Reached"
-binci uniswapTicker APYS
-binci honeyswapTicker DAI
-binci bitforexTicker coin-usdt-omi
-binci bitmaxTicker BTC/USDT
+bincli sushiswapTicker DELTA
+bincli uniswapTicker APYS
+bincli honeyswapTicker DAI
+bincli bitforexTicker coin-usdt-omi
+bincli bitmaxTicker BTC/USDT
 `)
 }
 

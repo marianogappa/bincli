@@ -43,6 +43,8 @@ func main() {
 		uniswapAlert()
 	case "honeyswapAlert":
 		honeyswapAlert()
+	case "sushiswapAlert":
+		sushiswapAlert()
 	case "bitforexAlert":
 		bitforexAlert()
 	case "bitmaxAlert":
@@ -51,6 +53,8 @@ func main() {
 		uniswapTicker()
 	case "honeyswapTicker":
 		honeyswapTicker()
+	case "sushiswapTicker":
+		sushiswapTicker()
 	case "bitforexTicker":
 		bitforexTicker()
 	case "bitmaxTicker":
