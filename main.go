@@ -49,6 +49,8 @@ func main() {
 		bitforexAlert()
 	case "bitmaxAlert":
 		bitmaxAlert()
+	case "sovAlert":
+		sovAlert()
 	case "uniswapTicker":
 		uniswapTicker()
 	case "honeyswapTicker":
@@ -59,6 +61,8 @@ func main() {
 		bitforexTicker()
 	case "bitmaxTicker":
 		bitmaxTicker()
+	case "sovTicker":
+		sovTicker()
 	default:
 		usage()
 	}
