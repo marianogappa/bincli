@@ -26,6 +26,7 @@ var (
 		"RPL":    "0xb4efd85c19999d84251304bda99e90b92300bd93",
 		"FEI":    "0x956f47f50a910163d8bf957cf5846d573e7f87ca",
 		"TRIBE":  "0xc7283b66eb1eb5fb86327f08e1b5816b0720212b",
+		"BUIDL":  "0x7b123f53421b1bf8533339bfbdc7c98aa94163db",
 	}
 )
 
