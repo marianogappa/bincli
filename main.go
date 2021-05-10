@@ -63,6 +63,8 @@ func main() {
 		bitmaxTicker()
 	case "sovTicker":
 		sovTicker()
+	case "ethGas":
+		ethGas()
 	default:
 		usage()
 	}

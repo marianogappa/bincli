@@ -32,6 +32,7 @@ bincli honeyswapTicker DAI
 bincli bitforexTicker coin-usdt-omi
 bincli bitmaxTicker BTC/USDT
 bincli sovTicker
+bincli ethGas {rapid|fast|standard|slow}
 `)
 }
 
