@@ -49,6 +49,8 @@ func main() {
 		bitforexAlert()
 	case "bitmaxAlert":
 		bitmaxAlert()
+	case "ftxAlert":
+		ftxAlert()
 	case "sovAlert":
 		sovAlert()
 	case "uniswapTicker":
@@ -59,6 +61,8 @@ func main() {
 		sushiswapTicker()
 	case "bitforexTicker":
 		bitforexTicker()
+	case "ftxTicker":
+		ftxTicker()
 	case "bitmaxTicker":
 		bitmaxTicker()
 	case "sovTicker":

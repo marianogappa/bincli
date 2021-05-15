@@ -25,12 +25,14 @@ bincli uniswapAlert APYS ">" 0.1 && cowsay "Reached"
 bincli honeyswapAlert DAI ">" 0.1 && cowsay "Reached"
 bincli bitforexAlert coin-usdt-omi ">" 0.1 && cowsay "Reached"
 bincli bitmaxAlert BTC/USDT ">" 56000 && cowsay "Reached"
+bincli ftxAlert BTC/USD ">" 56000 && cowsay "Reached"
 bincli sovAlert ">" 56000 && cowsay "Reached"
 bincli sushiswapTicker DELTA
 bincli uniswapTicker APYS
 bincli honeyswapTicker DAI
 bincli bitforexTicker coin-usdt-omi
 bincli bitmaxTicker BTC/USDT
+bincli ftxTicker BTC/USD
 bincli sovTicker
 bincli ethGas {rapid|fast|standard|slow}
 `)

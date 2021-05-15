@@ -11,19 +11,19 @@ import (
 	"time"
 )
 
-type bitmaxClose struct {
-	Close string `json:"close"`
+type ftxResponseResult struct {
+	Last float64 `json:"last"`
 }
 
-type bitmaxResponse struct {
-	Data bitmaxClose `json:"data"`
+type ftxResponse struct {
+	Result ftxResponseResult `json:"result"`
 }
 
-func bitmaxTicker() {
+func ftxTicker() {
 	if len(os.Args) < 3 {
 		usage()
 	}
-	price, err := requestBitmaxTicker(os.Args[2])
+	price, err := requestFtxTicker(os.Args[2])
 	if err != nil {
 		log.Printf("Error getting ticker price for %v (because %v)", os.Args[2], err)
 		usage()
@@ -31,8 +31,8 @@ func bitmaxTicker() {
 	fmt.Println(price)
 }
 
-func requestBitmaxTicker(coin string) (float64, error) {
-	url := fmt.Sprintf("https://bitmax.io/api/pro/v1/ticker?symbol=%v", coin)
+func requestFtxTicker(coin string) (float64, error) {
+	url := fmt.Sprintf("https://ftx.com./api/markets/%v", coin)
 
 	resp, err := http.Get(url)
 	if err != nil {
@@ -42,28 +42,27 @@ func requestBitmaxTicker(coin string) (float64, error) {
 
 	body, _ := ioutil.ReadAll(resp.Body)
 
-	responseData := bitmaxResponse{}
+	responseData := ftxResponse{}
 	err = json.Unmarshal(body, &responseData)
 	if err != nil {
 		return 0, err
 	}
-	priceStr := responseData.Data.Close
-	price, err := strconv.ParseFloat(priceStr, 64)
+	price := responseData.Result.Last
 	if err != nil {
 		return 0, err
 	}
 	return price, nil
 }
 
-func isBitmaxConditionMet(contractAddress string, comparator string, target float64) (float64, bool, error) {
-	price, err := requestBitmaxTicker(contractAddress)
+func isFtxConditionMet(contractAddress string, comparator string, target float64) (float64, bool, error) {
+	price, err := requestFtxTicker(contractAddress)
 	if err != nil {
 		return price, false, err
 	}
 	return isConditionMet(price, comparator, target)
 }
 
-func bitmaxAlert() {
+func ftxAlert() {
 	if len(os.Args) < 5 {
 		usage()
 	}
@@ -83,7 +82,7 @@ func bitmaxAlert() {
 	}
 
 	for {
-		price, isConditionMet, err := isBitmaxConditionMet(contractAddress, comparator, target)
+		price, isConditionMet, err := isFtxConditionMet(contractAddress, comparator, target)
 		if err != nil {
 			log.Printf("Error getting ticker price for %v (because %v)", symbol, err)
 		} else {
