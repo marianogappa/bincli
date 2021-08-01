@@ -16,8 +16,6 @@ var (
 	uniswapAliases = map[string]string{
 		"APYS":   "0xf7413489c474ca4399eee604716c72879eea3615",
 		"SYNC":   "0xb6ff96b8a8d214544ca0dbc9b33f7ad6503efd32",
-		"ROOM":   "0xad4f86a25bbc20ffb751f2fac312a0b4d8f88c64",
-		"COURT":  "0x0538A9b4f4dcB0CB01A7fA34e17C0AC947c22553",
 		"EROWAN": "0x07bac35846e5ed502aa91adf6a9e7aa210f2dcbe",
 		"INV":    "0x41d5d79431a913c4ae7d69a668ecdfe5ff9dfb68",
 		"MARK":   "0x67c597624b17b16fb77959217360b7cd18284253",
@@ -29,6 +27,7 @@ var (
 		"TRIBE":  "0xc7283b66eb1eb5fb86327f08e1b5816b0720212b",
 		"BUIDL":  "0x7b123f53421b1bf8533339bfbdc7c98aa94163db",
 		"ESOV":   "0xbdab72602e9ad40fc6a6852caf43258113b8f7a5",
+		"YGG":    "0x25f8087ead173b73d6e8b84329989a8eea16cf73",
 	}
 )
 
