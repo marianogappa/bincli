@@ -16,6 +16,7 @@ var (
 	sushiswapAliases = map[string]string{
 		"DELTA": "0x9ea3b5b4ec044b70375236a281986106457b20ef",
 		"RLP":   "0xfcfc434ee5bff924222e084a8876eee74ea7cfba",
+		"YGG":   "0x25f8087ead173b73d6e8b84329989a8eea16cf73",
 	}
 )
 
