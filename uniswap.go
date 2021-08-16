@@ -27,6 +27,7 @@ var (
 		"TRIBE":  "0xc7283b66eb1eb5fb86327f08e1b5816b0720212b",
 		"BUIDL":  "0x7b123f53421b1bf8533339bfbdc7c98aa94163db",
 		"ESOV":   "0xbdab72602e9ad40fc6a6852caf43258113b8f7a5",
+		"STARL":  "0x8e6cd950ad6ba651f6dd608dc70e5886b1aa6b24",
 	}
 )
 
