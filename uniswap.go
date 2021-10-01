@@ -29,6 +29,7 @@ var (
 		"ESOV":    "0xbdab72602e9ad40fc6a6852caf43258113b8f7a5",
 		"STARL":   "0x8e6cd950ad6ba651f6dd608dc70e5886b1aa6b24",
 		"STARPAD": "0x5067006f830224960fb419d7f25a3a53e9919bb0",
+		"METIS":   "0x9e32b13ce7f2e80a01932b42553652e053d6ed8e",
 	}
 )
 
