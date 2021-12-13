@@ -47,6 +47,8 @@ func main() {
 		sushiswapAlert()
 	case "bitforexAlert":
 		bitforexAlert()
+	case "kucoinAlert":
+		kucoinAlert()
 	case "bitmaxAlert":
 		bitmaxAlert()
 	case "ftxAlert":
@@ -61,6 +63,8 @@ func main() {
 		sushiswapTicker()
 	case "bitforexTicker":
 		bitforexTicker()
+	case "kucoinTicker":
+		kucoinTicker()
 	case "ftxTicker":
 		ftxTicker()
 	case "bitmaxTicker":
